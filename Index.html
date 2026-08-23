@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Trivora</title>
+
+<style>
+
+/* ==============================
+   GENERAL
+============================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f4f8ff;
+  color:#14213d;
+  padding-bottom:80px;
+}
+
+button,
+input{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none !important;
+}
+
+
+/* ==============================
+   AUTH
+============================== */
+
+.auth-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#0066ff,#0042a8);
+}
+
+.auth-card{
+  width:100%;
+  max-width:410px;
+  background:white;
+  padding:30px;
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
+}
+
+.logo{
+  font-size:32px;
+  font-weight:900;
+  color:#0866e8;
+  text-align:center;
+  letter-spacing:2px;
+}
+
+.welcome{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-top:18px;
+}
+
+.muted{
+  color:#718096;
+  font-size:14px;
+  margin:7px 0 20px;
+}
+
+
+/* ==============================
+   PASSWORD
+============================== */
+
+.password-box{
+  position:relative;
+  width:100%;
+}
+
+.password-box input{
+  width:100%;
+  padding:15px 50px 15px 15px;
+  border:1px solid #d8e2ef;
+  border-radius:12px;
+  margin-bottom:13px;
+  outline:none;
+  font-size:15px;
+}
+
+.password-box input:focus{
+  border-color:#0866e8;
+}
+
+.eye-button{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:38px;
+  height:38px;
+  border:0;
+  background:transparent;
+  font-size:20px;
+  color:#667085;
+  margin-top:-6px;
+}
+
+.auth-card > input{
+  width:100%;
+  padding:15px;
+  border:1px solid #d8e2ef;
+  border-radius:12px;
+  margin-bottom:13px;
+  outline:none;
+  font-size:15px;
+}
+
+.auth-card > input:focus{
+  border-color:#0866e8;
+}
+
+.auth-card > button,
+.primary{
+  width:100%;
+  border:0;
+  background:#0866e8;
+  color:white;
+  padding:15px;
+  border-radius:12px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.remember{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  margin:5px 0 18px;
+  font-size:13px;
+}
+
+.remember input{
+  width:auto;
+  margin:0;
+}
+
+.switch{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+  color:#68758a;
+}
+
+.switch span{
+  color:#0866e8;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+
+/* ==============================
+   HEADER
+============================== */
+
+header{
+  background:white;
+  padding:17px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+
+.logo.small{
+  text-align:left;
+  font-size:22px;
+}
+
+header p{
+  font-size:13px;
+  color:#718096;
+  margin-top:3px;
+}
+
+.logout{
+  background:#eef5ff;
+  border:0;
+  padding:9px 13px;
+  border-radius:9px;
+  color:#0866e8;
+}
+
+
+/* ==============================
+   APP PAGES
+============================== */
+
+.app-page{
+  animation:fade .2s ease;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/* ==============================
+   BALANCE
+============================== */
+
+.balance-card{
+  margin:20px;
+  padding:25px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(135deg,#0875ff,#003d9c);
+  box-shadow:0 12px 30px rgba(0,91,210,.25);
+}
+
+.balance-card p{
+  opacity:.85;
+}
+
+.balance-card h1{
+  font-size:35px;
+  margin:10px 0 22px;
+}
+
+.balance-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.balance-buttons button{
+  flex:1;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:white;
+  color:#075bc8;
+  font-weight:bold;
+}
+
+
+/* ==============================
+   MENU
+============================== */
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:20px;
+}
+
+.menu-item{
+  background:white;
+  border-radius:15px;
+  padding:15px 5px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+  cursor:pointer;
+}
+
+.menu-item div{
+  font-size:23px;
+  margin-bottom:7px;
+}
+
+.menu-item span{
+  font-size:11px;
+  color:#566477;
+}
+
+
+/* ==============================
+   PANELS
+============================== */
+
+.panel{
+  background:white;
+  margin:20px;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+.panel h2{
+  margin-bottom:8px;
+}
+
+.panel label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin:10px 0 7px;
+}
+
+.panel input{
+  width:100%;
+  padding:15px;
+  border:1px solid #d8e2ef;
+  border-radius:12px;
+  margin-bottom:13px;
+  outline:none;
+  font-size:15px;
+}
+
+
+/* ==============================
+   PRODUCTS
+============================== */
+
+.products-title{
+  margin:20px 20px 5px;
+  font-size:24px;
+}
+
+.products-subtitle{
+  margin:0 20px 15px;
+  color:#718096;
+  font-size:14px;
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin:20px;
+}
+
+.product-card{
+  background:white;
+  border-radius:17px;
+  overflow:hidden;
+  box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+.product-image{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  display:block;
+  background:#edf3fa;
+}
+
+.product-info{
+  padding:14px;
+}
+
+.product-name{
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.product-description{
+  font-size:12px;
+  color:#718096;
+  line-height:1.5;
+  min-height:36px;
+  margin-bottom:10px;
+  white-space:pre-line;
+}
+
+.product-price{
+  font-size:18px;
+  color:#0866e8;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.product-button{
+  width:100%;
+  padding:10px;
+  border:0;
+  border-radius:9px;
+  background:#0866e8;
+  color:white;
+  font-weight:bold;
+}
+
+
+/* ==============================
+   PRODUCT DETAILS
+============================== */
+
+.product-detail{
+  background:white;
+  margin:20px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+}
+
+.product-detail img{
+  width:100%;
+  max-height:330px;
+  object-fit:cover;
+}
+
+.product-detail-content{
+  padding:20px;
+}
+
+.product-detail-content h2{
+  margin-bottom:10px;
+}
+
+.detail-description{
+  color:#718096;
+  line-height:1.6;
+  margin-bottom:15px;
+  white-space:pre-line;
+}
+
+.detail-price{
+  color:#0866e8;
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.back-button{
+  border:0;
+  background:#eef5ff;
+  color:#0866e8;
+  padding:11px 16px;
+  border-radius:9px;
+  margin:15px;
+}
+
+
+/* ==============================
+   TIMER
+============================== */
+
+.timer{
+  background:#edf5ff;
+  border:1px solid #cfe3ff;
+  border-radius:15px;
+  padding:15px;
+  text-align:center;
+  margin:15px 0;
+}
+
+.timer small{
+  display:block;
+  color:#718096;
+}
+
+.timer strong{
+  display:block;
+  color:#0866e8;
+  font-size:30px;
+  margin-top:5px;
+}
+
+
+/* ==============================
+   BANK
+============================== */
+
+.bank-card{
+  background:#f7faff;
+  border:1px solid #dce9f8;
+  border-radius:15px;
+  padding:17px;
+  margin:15px 0;
+}
+
+.bank-card h3{
+  margin-bottom:15px;
+}
+
+.bank-card p{
+  display:flex;
+  justify-content:space-between;
+  padding:11px 0;
+  border-bottom:1px solid #e5edf7;
+  gap:10px;
+}
+
+.bank-card p:last-of-type{
+  border:0;
+}
+
+.bank-card span{
+  color:#718096;
+}
+
+.bank-card button{
+  width:100%;
+  padding:11px;
+  border:0;
+  background:#e7f1ff;
+  color:#0866e8;
+  border-radius:9px;
+}
+
+
+/* ==============================
+   WITHDRAW
+============================== */
+
+.withdraw-card{
+  background:#f1f7ff;
+  padding:18px;
+  border-radius:14px;
+  margin:15px 0;
+}
+
+.withdraw-card p{
+  color:#718096;
+}
+
+.withdraw-card h2{
+  margin-top:8px;
+  color:#0866e8;
+}
+
+
+/* ==============================
+   REFERRAL
+============================== */
+
+.ref-code{
+  background:#eef6ff;
+  text-align:center;
+  padding:25px;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+.ref-code p{
+  color:#718096;
+}
+
+.ref-code h2{
+  color:#0866e8;
+  margin:10px;
+}
+
+.ref-code button{
+  padding:10px 20px;
+  border:0;
+  background:#0866e8;
+  color:white;
+  border-radius:8px;
+}
+
+.team-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
+
+.team-stats div{
+  padding:18px;
+  text-align:center;
+  background:#f7faff;
+  border-radius:12px;
+}
+
+.team-stats strong,
+.team-stats span{
+  display:block;
+}
+
+.team-stats strong{
+  font-size:24px;
+  color:#0866e8;
+}
+
+
+/* ==============================
+   TASKS
+============================== */
+
+.progress-card{
+  padding:20px;
+  background:#f5f9ff;
+  border-radius:14px;
+  margin:15px 0;
+}
+
+.progress{
+  height:8px;
+  background:#dfe8f4;
+  border-radius:20px;
+  margin-top:12px;
+  overflow:hidden;
+}
+
+#progressBar{
+  height:100%;
+  width:0%;
+  background:#0866e8;
+  transition:.3s;
+}
+
+.task{
+  width:100%;
+  padding:15px;
+  margin:7px 0;
+  border:1px solid #e0e9f4;
+  background:white;
+  border-radius:11px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.task span{
+  color:#0866e8;
+}
+
+
+/* ==============================
+   ACCOUNT
+============================== */
+
+.account-menu{
+  margin-top:15px;
+}
+
+.account-menu button{
+  display:block;
+  width:100%;
+  padding:16px;
+  text-align:left;
+  background:white;
+  border:0;
+  border-bottom:1px solid #edf1f6;
+}
+
+
+/* ==============================
+   ACCOUNT DETAILS
+============================== */
+
+.account-details{
+  background:#f7faff;
+  border:1px solid #dce9f8;
+  border-radius:15px;
+  padding:17px;
+  margin-top:15px;
+}
+
+.account-details p{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #e5edf7;
+}
+
+.account-details p:last-child{
+  border-bottom:0;
+}
+
+.account-details span{
+  color:#718096;
+}
+
+
+/* ==============================
+   NOTICE
+============================== */
+
+.notice,
+.security{
+  color:#718096;
+  font-size:12px;
+  line-height:1.6;
+  margin-top:15px;
+  text-align:center;
+}
+
+
+/* ==============================
+   NAVIGATION
+============================== */
+
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:65px;
+  background:white;
+  border-top:1px solid #e5eaf0;
+  display:flex;
+  justify-content:space-around;
+  z-index:100;
+}
+
+nav button{
+  flex:1;
+  border:0;
+  background:white;
+  color:#667085;
+  font-size:18px;
+}
+
+nav button.active{
+  color:#0866e8;
+}
+
+nav span{
+  display:block;
+  font-size:10px;
+  margin-top:3px;
+}
+
+
+/* ==============================
+   DESKTOP
+============================== */
+
+@media(min-width:700px){
+
+  #dashboard{
+    max-width:850px;
+    margin:auto;
+  }
+
+  .products-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .menu-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     LOGIN PAGE
+================================================== -->
+
+<section id="loginPage" class="auth-page">
+
+  <div class="auth-card">
+
+    <div class="logo">
+      GITHIB
+    </div>
+
+    <p class="welcome">
+      Welcome back 👋
+    </p>
+
+    <p class="muted">
+      Sign in to your GitHib account
+    </p>
+
+    <input
+      id="loginPhone"
+      type="tel"
+      placeholder="Phone number"
+    >
+
+    <div class="password-box">
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+      >
+
+      <button
+        type="button"
+        class="eye-button"
+        onclick="togglePassword('loginPassword',this)"
+      >
+        👁
+      </button>
+
+    </div>
+
+    <label class="remember">
+
+      <input
+        id="rememberMe"
+        type="checkbox"
+      >
+
+      Remember me
+
+    </label>
+
+    <button onclick="login()">
+      Continue
+    </button>
+
+    <p class="switch">
+
+      Don't have an account?
+
+      <span onclick="showRegister()">
+        Create account
+      </span>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================================
+     REGISTER PAGE
+================================================== -->
+
+<section id="registerPage" class="auth-page hidden">
+
+  <div class="auth-card">
+
+    <div class="logo">
+      GITHIB
+    </div>
+
+    <p class="welcome">
+      Create your account
+    </p>
+
+    <input
+      id="regPhone"
+      type="tel"
+      placeholder="Phone number"
+    >
+
+    <div class="password-box">
+
+      <input
+        id="regPassword"
+        type="password"
+        placeholder="Create password"
+      >
+
+      <button
+        type="button"
+        class="eye-button"
+        onclick="togglePassword('regPassword',this)"
+      >
+        👁
+      </button>
+
+    </div>
+
+    <div class="password-box">
+
+      <input
+        id="regConfirm"
+        type="password"
+        placeholder="Repeat password"
+      >
+
+      <button
+        type="button"
+        class="eye-button"
+        onclick="togglePassword('regConfirm',this)"
+      >
+        👁
+      </button>
+
+    </div>
+
+    <input
+      id="refCode"
+      type="text"
+      placeholder="Referral code (optional)"
+    >
+
+    <button onclick="register()">
+      Create Account
+    </button>
+
+    <p class="switch">
+
+      Already have an account?
+
+      <span onclick="showLogin()">
+        Log in
+      </span>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================================
+     DASHBOARD
+================================================== -->
+
+<main id="dashboard" class="hidden">
+
+<header>
+
+  <div>
+
+    <div class="logo small">
+      GITHIB
+    </div>
+
+    <p>
+      Welcome back 👋
+    </p>
+
+  </div>
+
+  <button
+    class="logout"
+    onclick="logout()"
+  >
+    Logout
+  </button>
+
+</header>
+
+
+<!-- ==================================================
+     HOME PAGE
+================================================== -->
+
+<section id="homePage" class="app-page">
+
+  <section class="balance-card">
+
+    <p>
+      Available Balance
+    </p>
+
+    <h1>
+      ₦<span id="balance">0.00</span>
+    </h1>
+
+    <div class="balance-buttons">
+
+      <button onclick="showPage('paymentPage')">
+        Payment
+      </button>
+
+      <button onclick="showPage('withdrawalPage')">
+        Withdrawal
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <section class="menu-grid">
+
+    <div
+      class="menu-item"
+      onclick="showPage('productsPage')"
+    >
+
+      <div>🛍️</div>
+
+      <span>
+        Products
+      </span>
+
+    </div>
+
+
+    <div
+      class="menu-item"
+      onclick="showPage('paymentPage')"
+    >
+
+      <div>💳</div>
+
+      <span>
+        Payment
+      </span>
+
+    </div>
+
+
+    <div
+      class="menu-item"
+      onclick="showPage('teamPage')"
+    >
+
+      <div>👥</div>
+
+      <span>
+        Invite
+      </span>
+
+    </div>
+
+
+    <div
+      class="menu-item"
+      onclick="showPage('tasksPage')"
+    >
+
+      <div>🎯</div>
+
+      <span>
+        Tasks
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <section class="panel">
+
+    <h2>
+      Welcome to GitHib
+    </h2>
+
+    <p class="muted">
+      Explore our products and available platform features.
+    </p>
+
+    <img
+      src="images/trivora.jpg" alt="trivora"
+      style="width:calc(100% - 40px); margin:0 20px 20px; border-radius:18px; display:block;"
+    >
+
+  </section>
+
+</section>
+
+
+<!-- ==================================================
+     PRODUCTS PAGE
+================================================== -->
+
+<section id="productsPage" class="app-page hidden">
+
+  <h2 class="products-title">
+    Products
+  </h2>
+
+  <p class="products-subtitle">
+    Browse available products.
+  </p>
+
+  <div
+    id="productsGrid"
+    class="products-grid"
+  ></div>
+
+</section>
+
+
+<!-- ==================================================
+     PRODUCT DETAIL PAGE
+================================================== -->
+
+<section id="productDetailPage" class="app-page hidden">
+
+  <div class="product-detail">
+
+    <button
+      class="back-button"
+      onclick="showPage('productsPage')"
+    >
+      ← Back to Products
+    </button>
+
+    <img
+      id="detailImage"
+      src=""
+      alt="Product"
+    >
+
+    <div class="product-detail-content">
+
+      <h2 id="detailName">
+        Product
+      </h2>
+
+      <p
+        id="detailDescription"
+        class="detail-description"
+      ></p>
+
+      <div
+        id="detailPrice"
+        class="detail-price"
+      ></div>
+
+      <button
+        class="primary"
+        onclick="alert('Product order.')"
+      >
+        Order Product
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ==================================================
+     PAYMENT PAGE
+================================================== -->
+
+<section id="paymentPage" class="app-page hidden">
+
+  <section class="panel">
+
+    <h2>
+      Make Payment
+    </h2>
+
+    <p class="muted">
+      Demo payment interface
+    </p>
+
+    <div class="timer">
+
+      <small>
+        Payment session expires in
+      </small>
+
+      <strong id="timer">
+        30:00
+      </strong>
+
+    </div>
+
+    <label>
+      Amount
+    </label>
+
+    <input
+      id="paymentAmount"
+      type="number"
+      placeholder="Enter amount"
+    >
+
+    <div class="bank-card">
+
+      <h3>
+        Payment Account
+      </h3>
+
+      <p>
+
+        <span>
+          Bank
+        </span>
+
+        <b>
+          Opay Bank
+        </b>
+
+      </p>
+
+      <p>
+
+        <span>
+          Account Name
+        </span>
+
+        <b>
+          Gbenga Lateef
+        </b>
+
+      </p>
+
+      <p>
+
+        <span>
+          Account Number
+        </span>
+
+        <b>
+          8028350534
+        </b>
+
+      </p>
+
+      <button onclick="copyAccount()">
+        Copy Account Number
+      </button>
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="submitPayment()"
+    >
+      I've Made Payment
+    </button>
+
+    <p class="security">
+
+      Never provide your password,
+      PIN or OTP to anyone.
+
+    </p>
+
+  </section>
+
+</section>
+
+
+<!-- ==================================================
+     WITHDRAWAL PAGE
+================================================== -->
+
+<section id="withdrawalPage" class="app-page hidden">
+
+  <section class="panel">
+
+    <h2>
+      Withdrawal
+    </h2>
+
+    <div class="withdraw-card">
+
+      <p>
+        Available Balance
+      </p>
+
+      <h2>
+        ₦<span id="withdrawBalance">0.00</span>
+      </h2>
+
+    </div>
+
+    <label>
+      Withdrawal Amount
+    </label>
+
+    <input
+      id="withdrawAmount"
+      type="number"
+      placeholder="Minimum Withdrawal limit is 1000"
+    >
+
+    <button
+      class="primary"
+      onclick="requestWithdrawal()"
+    >
+      Request Withdrawal
+    </button>
+
+  </section>
+
+</section>
+
+
+<!-- ==================================================
+     TEAM PAGE
+================================================== -->
+
+<section id="teamPage" class="app-page hidden">
+
+  <section class="panel">
+
+    <h2>
+      My Team
+    </h2>
+
+    <div class="ref-code">
+
+      <p>
+        Your referral code
+      </p>
+
+      <h2 id="referralDisplay">
+        https://trivora-cyber.github.io/TRIVORA-WEBSITE-/
+      </h2>
+
+      <button onclick="copyReferral()">
+        Copy Referral Link      </button>
+
+    </div>
+
+    <div class="team-stats">
+
+      <div>
+
+        <strong id="level1Count">
+          0
+        </strong>
+
+        <span>
+          Level 1
+        </span>
+
+      </div>
+
+      <div>
+
+        <strong id="level2Count">
+          0
+        </strong>
+
+        <span>
+          Level 2
+        </span>
+
+      </div>
+
+    </div>
+
+    <p class="notice">
+      Share your referral link with friends.
+    </p>
+
+  </section>
+
+</section>
+
+
+<!-- ==================================================
+     TASK PAGE
+================================================== -->
+
+<section id="tasksPage" class="app-page hidden">
+
+  <section class="panel">
+
+    <h2>
+      Task Center
+    </h2>
+
+    <div class="progress-card">
+
+      <p>
+        Tasks completed
+      </p>
+
+      <h2>
+        <span id="taskCount">0</span>/5
+      </h2>
+
+      <div class="progress">
+
+        <div id="progressBar"></div>
+
+      </div>
+
+    </div>
+
+    <button
+      class="task"
+      onclick="completeTask(this)"
+    >
+
+      📱 Visit GitHib
+
+      <span>
+        + Task
+      </span>
+
+    </button>
+
+    <button
+      class="task"
+      onclick="completeTask(this)"
+    >
+
+      👥 Check referral page
+
+      <span>
+        + Task
+      </span>
+
+    </button>
+
+    <button
+      class="task"
+      onclick="completeTask(this)"
+    >
+
+      📖 Read platform information
+
+      <span>
+        + Task
+      </span>
+
+    </button>
+
+  </section>
+
+</section>
+
+
+<!-- ==================================================
+     ACCOUNT PAGE
+================================================== -->
+
+<section id="accountPage" class="app-page hidden">
+
+  <section class="panel">
+
+    <h2>
+      Account
+    </h2>
+
+    <div class="account-menu">
+
+      <button onclick="showAccountDetails()">
+        👤 Account Details
+      </button>
+
+      <button onclick="alert('Payment records')">
+        📋 Payment Records
+      </button>
+
+      <button onclick="alert('Withdrawal records')">
+        💸 Withdrawal Records
+      </button>
+
+      <button onclick="alert('Security settings')">
+        🔐 Security
+      </button>
+
+      <button
+        onclick="window.open('https://wa.me/2348028350534','_blank')"
+      >
+        💬 Customer Service
+      </button>
+
+    </div>
+
+
+    <div
+      id="accountDetailsBox"
+      class="account-details hidden"
+    >
+
+      <h3>
+        My Bank Details
+      </h3>
+
+      <p>
+        <span>Bank Name</span>
+        <b id="savedBankName">Not added</b>
+      </p>
+
+      <p>
+        <span>Account Number</span>
+        <b id="savedAccountNumber">Not added</b>
+      </p>
+
+      <p>
+        <span>Account Name</span>
+        <b id="savedAccountName">Not added</b>
+      </p>
+
+    </div>
+
+  </section>
+
+</section>
+
+
+</main>
+
+
+<!-- ==================================================
+     BOTTOM NAVIGATION
+================================================== -->
+
+<nav id="bottomNav" class="hidden">
+
+  <button
+    onclick="showPage('homePage')"
+    class="active"
+  >
+
+    🏠
+
+    <span>
+      Home
+    </span>
+
+  </button>
+
+  <button
+    onclick="showPage('productsPage')"
+  >
+
+    🛍️
+
+    <span>
+      Products
+    </span>
+
+  </button>
+
+  <button
+    onclick="showPage('teamPage')"
+  >
+
+    👥
+
+    <span>
+      Team
+    </span>
+
+  </button>
+
+  <button
+    onclick="showPage('accountPage')"
+  >
+
+    👤
+
+    <span>
+      Account
+    </span>
+
+  </button>
+
+</nav>
+
+
+<script>
+
+/* ==================================================
+   SETTINGS
+================================================== */
+
+const MIN_DEPOSIT = 3000;
+const WELCOME_BONUS = 1000;
+
+
+/* ==================================================
+   CURRENT USER
+================================================== */
+
+let currentUser = localStorage.getItem(
+  "trivoraCurrentUser"
+);
+
+
+/* ==================================================
+   ACCOUNT DATA
+================================================== */
+
+let balance = 0;
+let deposited = 0;
+let tasks = 0;
+
+let bankDetails = {
+  bankName:"",
+  accountNumber:"",
+  accountName:""
+};
+
+
+/*
+   Each account gets its own localStorage keys.
+*/
+
+function userKey(name){
+
+  if(!currentUser){
+    return "githib_" + name;
+  }
+
+  return "githib_" +
+    name +
+    "_" +
+    currentUser;
+
+}
+
+
+/* ==================================================
+   LOAD ACCOUNT DATA
+================================================== */
+
+function loadAccountData(){
+
+  if(!currentUser){
+    return;
+  }
+
+  balance =
+    Number(
+      localStorage.getItem(
+        userKey("balance")
+      )
+    ) || 0;
+
+  deposited =
+    Number(
+      localStorage.getItem(
+        userKey("deposited")
+      )
+    ) || 0;
+
+  tasks =
+    Number(
+      localStorage.getItem(
+        userKey("tasks")
+      )
+    ) || 0;
+
+  bankDetails =
+    JSON.parse(
+      localStorage.getItem(
+        userKey("bankDetails")
+      )
+    ) || {
+      bankName:"",
+      accountNumber:"",
+      accountName:""
+    };
+
+}
+
+
+/* ==================================================
+   SAVE ACCOUNT DATA
+================================================== */
+
+function saveAccountData(){
+
+  if(!currentUser){
+    return;
+  }
+
+  localStorage.setItem(
+    userKey("balance"),
+    balance
+  );
+
+  localStorage.setItem(
+    userKey("deposited"),
+    deposited
+  );
+
+  localStorage.setItem(
+    userKey("tasks"),
+    tasks
+  );
+
+  localStorage.setItem(
+    userKey("bankDetails"),
+    JSON.stringify(bankDetails)
+  );
+
+}
+
+
+/* ==================================================
+   WELCOME BONUS STATUS
+================================================== */
+
+function hasReceivedWelcomeBonus(){
+
+  if(!currentUser){
+    return false;
+  }
+
+  return localStorage.getItem(
+    userKey("welcomeBonusGiven")
+  ) === "true";
+
+}
+
+
+function giveWelcomeBonus(){
+
+  if(!currentUser){
+    return;
+  }
+
+  if(hasReceivedWelcomeBonus()){
+    return;
+  }
+
+  balance += WELCOME_BONUS;
+
+  localStorage.setItem(
+    userKey("welcomeBonusGiven"),
+    "true"
+  );
+
+  saveAccountData();
+
+  alert(
+    "Welcome to GitHib!\n\n" +
+    "₦1,000 welcome bonus has been added to your balance.\n\n" +
+    "Please note: this is a platform and withdrawals require a minimum simulated deposit of ₦3,000."
+  );
+
+}
+
+
+/* ==================================================
+   PRODUCTS
+================================================== */
+
+const products = [
+
+  {
+    image:"images/fan.jpg",
+
+    name:"FAN",
+
+    description:
+`₦5,000 Package
+Daily Earn: ₦800 daily for 72 days,
+Total earnings: ₦57,600.`,
+
+    price:5000
+  },
+
+
+  {
+    image:"images/generator.jpg",
+
+    name:"GENERATOR",
+
+    description:
+`₦10,000 Package
+Daily Earn: ₦1,600 daily for 72 days,
+Total earnings: ₦115,200.`,
+
+    price:10000
+  },
+
+
+  {
+    image:"images/television.jpg",
+
+    name:"TELEVISION",
+
+    description:
+`₦15,000 Package
+Daily Earn: ₦2,400 daily for 72 days,
+Total earnings: ₦172,800.`,
+
+    price:15000
+  }
+
+];
+
+
+/* ==================================================
+   DISPLAY PRODUCTS
+================================================== */
+
+function displayProducts(){
+
+  const grid =
+    document.getElementById(
+      "productsGrid"
+    );
+
+  grid.innerHTML = "";
+
+  products.forEach(
+    (product,index) => {
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "product-card";
+
+      card.innerHTML = `
+
+        <img
+          class="product-image"
+          src="${product.image}"
+          alt="${product.name}"
+          onerror="this.style.display='none'"
+        >
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ${product.name}
+          </div>
+
+          <div class="product-description">
+            ${product.description}
+          </div>
+
+          <div class="product-price">
+            ₦${Number(product.price).toLocaleString("en-NG")}
+          </div>
+
+          <button
+            class="product-button"
+            onclick="viewProduct(${index})"
+          >
+            View Product
+          </button>
+
+        </div>
+      `;
+
+      grid.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* ==================================================
+   VIEW PRODUCT
+================================================== */
+
+function viewProduct(index){
+
+  const product =
+    products[index];
+
+  document.getElementById(
+    "detailImage"
+  ).src =
+    product.image;
+
+  document.getElementById(
+    "detailName"
+  ).textContent =
+    product.name;
+
+  document.getElementById(
+    "detailDescription"
+  ).textContent =
+    product.description;
+
+  document.getElementById(
+    "detailPrice"
+  ).textContent =
+    "₦" +
+    Number(product.price)
+      .toLocaleString("en-NG");
+
+  showPage(
+    "productDetailPage"
+  );
+
+}
+
+
+/* ==================================================
+   PASSWORD EYE
+================================================== */
+
+function togglePassword(
+  inputId,
+  button
+){
+
+  const input =
+    document.getElementById(
+      inputId
+    );
+
+  if(
+    input.type === "password"
+  ){
+
+    input.type = "text";
+
+    button.textContent =
+      "🙈";
+
+  }else{
+
+    input.type = "password";
+
+    button.textContent =
+      "👁";
+
+  }
+
+}
+
+
+/* ==================================================
+   LOGIN / REGISTER PAGES
+================================================== */
+
+function showLogin(){
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("registerPage")
+    .classList.add("hidden");
+
+}
+
+
+function showRegister(){
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("registerPage")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==================================================
+   REGISTER
+================================================== */
+
+function register(){
+
+  const phone =
+    document.getElementById(
+      "regPhone"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "regPassword"
+    ).value;
+
+  const confirm =
+    document.getElementById(
+      "regConfirm"
+    ).value;
+
+  const referralCode =
+    document.getElementById(
+      "refCode"
+    ).value.trim();
+
+
+  if(!phone || !password){
+
+    alert(
+      "Please complete all required fields."
+    );
+
+    return;
+
+  }
+
+
+  if(password !== confirm){
+
+    alert(
+      "Passwords do not match."
+    );
+
+    return;
+
+  }
+
+
+  /*
+     Check whether this phone number
+     already has an account.
+  */
+
+  const existingPhone =
+    localStorage.getItem(
+      "githibUser"
+    );
+
+
+  if(
+    existingPhone === phone
+  ){
+
+    alert(
+      "An account with this phone number already exists. Please log in."
+    );
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  /*
+     Save account credentials.
+     This preserves compatibility
+     with the original GitHib code.
+  */
+
+  localStorage.setItem(
+    "githibUser",
+    phone
+  );
+
+  localStorage.setItem(
+    "githibPassword",
+    password
+  );
+
+
+  /*
+     Initialize this account's
+     personal data.
+  */
+
+  localStorage.setItem(
+    "githib_balance_" + phone,
+    "0"
+  );
+
+  localStorage.setItem(
+    "githib_deposited_" + phone,
+    "0"
+  );
+
+  localStorage.setItem(
+    "githib_tasks_" + phone,
+    "0"
+  );
+
+  localStorage.setItem(
+    "githib_welcomeBonusGiven_" + phone,
+    "false"
+  );
+
+  localStorage.setItem(
+    "githib_bankDetails_" + phone,
+    JSON.stringify({
+      bankName:"",
+      accountNumber:"",
+      accountName:""
+    })
+  );
+
+
+  /*
+     Save referral code if one
+     was entered.
+  */
+
+  if(referralCode){
+
+    localStorage.setItem(
+      "trivora_referral_" + phone,
+      referralCode
+    );
+
+  }
+
+
+  alert(
+    "Account created successfully!\n\nPlease log in to receive your ₦1,000 welcome bonus."
+  );
+
+
+  /*
+     Clear registration fields.
+  */
+
+  document.getElementById(
+    "regPhone"
+  ).value = "";
+
+  document.getElementById(
+    "regPassword"
+  ).value = "";
+
+  document.getElementById(
+    "regConfirm"
+  ).value = "";
+
+  document.getElementById(
+    "refCode"
+  ).value = "";
+
+
+  showLogin();
+
+}
+
+
+/* ==================================================
+   LOGIN
+================================================== */
+
+function login(){
+
+  const phone =
+    document.getElementById(
+      "loginPhone"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+
+  const savedPhone =
+    localStorage.getItem(
+      "githibUser"
+    );
+
+  const savedPassword =
+    localStorage.getItem(
+      "githibPassword"
+    );
+
+
+  if(!savedPhone){
+
+    alert(
+      "No account found. Please register first."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    phone === savedPhone &&
+    password === savedPassword
+  ){
+
+    /*
+       Set the current logged-in user.
+    */
+
+    currentUser = phone;
+
+    localStorage.setItem(
+      "trivoraCurrentUser",
+      currentUser
+    );
+
+
+    /*
+       Load this account's data.
+    */
+
+    loadAccountData();
+
+
+    /*
+       Give welcome bonus ONLY on the
+       first successful login.
+    */
+
+    giveWelcomeBonus();
+
+
+    /*
+       Show dashboard.
+    */
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("registerPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("dashboard")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("bottomNav")
+      .classList.remove("hidden");
+
+
+    showPage(
+      "homePage"
+    );
+
+
+    updateBalance();
+    updateTasks();
+    updateAccountDetails();
+
+  }else{
+
+    alert(
+      "Incorrect login details."
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+function logout(){
+
+  saveAccountData();
+
+  currentUser = null;
+
+  localStorage.removeItem(
+    "trivoraCurrentUser"
+  );
+
+  document
+    .getElementById("dashboard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("bottomNav")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
+
+function showPage(pageId){
+
+  const pages =
+    document.querySelectorAll(
+      ".app-page"
+    );
+
+  pages.forEach(
+    page =>
+      page.classList.add(
+        "hidden"
+      )
+  );
+
+
+  const selected =
+    document.getElementById(
+      pageId
+    );
+
+
+  if(selected){
+
+    selected.classList.remove(
+      "hidden"
+    );
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+
+  if(
+    pageId ===
+    "paymentPage"
+  ){
+
+    startTimer();
+
+  }
+
+
+  updateNavigation(
+    pageId
+  );
+
+}
+
+
+/* ==================================================
+   NAVIGATION ACTIVE STATE
+================================================== */
+
+function updateNavigation(
+  pageId
+){
+
+  const buttons =
+    document.querySelectorAll(
+      "#bottomNav button"
+    );
+
+  buttons.forEach(
+    button =>
+      button.classList.remove(
+        "active"
+      )
+  );
+
+
+  if(
+    pageId === "homePage"
+  ){
+
+    buttons[0].classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    pageId === "productsPage" ||
+    pageId === "productDetailPage"
+  ){
+
+    buttons[1].classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    pageId === "teamPage"
+  ){
+
+    buttons[2].classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    pageId === "accountPage"
+  ){
+
+    buttons[3].classList.add(
+      "active"
+    );
+
+  }
+
+}
+
+
+/* ==================================================
+   BALANCE
+================================================== */
+
+function updateBalance(){
+
+  document.getElementById(
+    "balance"
+  ).textContent =
+
+    balance.toLocaleString(
+      "en-NG",
+      {
+        minimumFractionDigits:2
+      }
+    );
+
+
+  document.getElementById(
+    "withdrawBalance"
+  ).textContent =
+
+    balance.toLocaleString(
+      "en-NG",
+      {
+        minimumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* ==================================================
+   PAYMENT
+================================================== */
+
+function submitPayment(){
+
+  const amount =
+    Number(
+      document.getElementById(
+        "paymentAmount"
+      ).value
+    );
+
+
+  if(!amount || amount <= 0){
+
+    alert(
+      "Enter a valid amount."
+    );
+
+    return;
+
+  }
+
+
+  if(amount < MIN_DEPOSIT){
+
+    alert(
+      "Minimum deposit is ₦" +
+      MIN_DEPOSIT.toLocaleString("en-NG")
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Payment information submitted for review.\n\n" +
+    "Verifying bank transfers automatically."
+  );
+
+}
+
+
+/* ==================================================
+   COPY ACCOUNT
+================================================== */
+
+function copyAccount(){
+
+  if(
+    navigator.clipboard &&
+    navigator.clipboard.writeText
+  ){
+
+    navigator.clipboard.writeText(
+      "8028350534"
+    );
+
+  }
+
+  alert(
+    "Account number copied."
+  );
+
+}
+
+
+/* ==================================================
+   WITHDRAWAL
+================================================== */
+
+function requestWithdrawal(){
+
+  const amount =
+    Number(
+      document.getElementById(
+        "withdrawAmount"
+      ).value
+    );
+
+
+  if(!amount || amount <= 0){
+
+    alert(
+      "Enter a valid withdrawal amount."
+    );
+
+    return;
+
+  }
+
+
+  if(amount > balance){
+
+    alert(
+      "Insufficient balance."
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "Withdrawal request processing . " +
+     
+    "Money has been transferred."
+  );
+
+}
+
+
+/* ==================================================
+   REFERRAL
+================================================== */
+
+function copyReferral(){
+
+  const referral =
+    currentUser
+      ? (
+          localStorage.getItem(
+            "trivora_referral_" +
+            currentUser
+          ) || "https://trivora-cyber.github.io/TRIVORA-WEBSITE-/"
+        )
+      : "https://trivora-cyber.github.io/TRIVORA-WEBSITE-/";
+
+
+  if(
+    navigator.clipboard &&
+    navigator.clipboard.writeText
+  ){
+
+    navigator.clipboard.writeText(
+      referral
+    );
+
+  }
+
+  alert(
+    "Referral link copied."
+  );
+
+}
+
+
+/* ==================================================
+   ACCOUNT DETAILS
+================================================== */
+
+function showAccountDetails(){
+
+  const bankName =
+    prompt(
+      "Enter your bank name:",
+      bankDetails.bankName
+    );
+
+  if(bankName === null){
+    return;
+  }
+
+
+  const accountNumber =
+    prompt(
+      "Enter your account number:",
+      bankDetails.accountNumber
+    );
+
+  if(accountNumber === null){
+    return;
+  }
+
+
+  const accountName =
+    prompt(
+      "Enter your account name:",
+      bankDetails.accountName
+    );
+
+  if(accountName === null){
+    return;
+  }
+
+
+  if(
+    !bankName.trim() ||
+    !accountNumber.trim() ||
+    !accountName.trim()
+  ){
+
+    alert(
+      "Please complete all bank details."
+    );
+
+    return;
+
+  }
+
+
+  bankDetails = {
+
+    bankName:
+      bankName.trim(),
+
+    accountNumber:
+      accountNumber.trim(),
+
+    accountName:
+      accountName.trim()
+
+  };
+
+
+  saveAccountData();
+
+
+  updateAccountDetails();
+
+
+  document
+    .getElementById(
+      "accountDetailsBox"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  alert(
+    "Bank details saved successfully."
+  );
+
+}
+
+
+/* ==================================================
+   DISPLAY SAVED ACCOUNT DETAILS
+================================================== */
+
+function updateAccountDetails(){
+
+  document.getElementById(
+    "savedBankName"
+  ).textContent =
+    bankDetails.bankName ||
+    "Not added";
+
+
+  document.getElementById(
+    "savedAccountNumber"
+  ).textContent =
+    bankDetails.accountNumber ||
+    "Not added";
+
+
+  document.getElementById(
+    "savedAccountName"
+  ).textContent =
+    bankDetails.accountName ||
+    "Not added";
+
+}
+
+
+/* ==================================================
+   TASKS
+================================================== */
+
+function completeTask(button){
+
+  if(
+    button.dataset.completed ===
+    "true"
+  ){
+
+    return;
+
+  }
+
+
+  button.dataset.completed =
+    "true";
+
+  button.style.opacity =
+    "0.5";
+
+  button.querySelector(
+    "span"
+  ).textContent =
+    "Completed";
+
+
+  tasks++;
+
+
+  saveAccountData();
+
+
+  updateTasks();
+
+}
+
+
+function updateTasks(){
+
+  document.getElementById(
+    "taskCount"
+  ).textContent =
+    tasks;
+
+
+  const percentage =
+    Math.min(
+      (tasks / 5) * 100,
+      100
+    );
+
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    percentage + "%";
+
+}
+
+
+/* ==================================================
+   PAYMENT TIMER
+================================================== */
+
+let timerInterval;
+
+let timeLeft =
+  30 * 60;
+
+
+function startTimer(){
+
+  clearInterval(
+    timerInterval
+  );
+
+
+  timeLeft =
+    30 * 60;
+
+
+  updateTimer();
+
+
+  timerInterval =
+    setInterval(
+      () => {
+
+        timeLeft--;
+
+        updateTimer();
+
+
+        if(
+          timeLeft <= 0
+        ){
+
+          clearInterval(
+            timerInterval
+          );
+
+          alert(
+            "Payment session expired."
+          );
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+function updateTimer(){
+
+  const timer =
+    document.getElementById(
+      "timer"
+    );
+
+
+  if(!timer){
+    return;
+  }
+
+
+  const minutes =
+    Math.floor(
+      timeLeft / 60
+    );
+
+
+  const seconds =
+    timeLeft % 60;
+
+
+  timer.textContent =
+
+    String(minutes)
+      .padStart(2,"0")
+
+    +
+
+    ":"
+
+    +
+
+    String(seconds)
+      .padStart(2,"0");
+
+}
+
+
+/* ==================================================
+   START APPLICATION
+================================================== */
+
+displayProducts();
+
+
+/*
+   If a user was already logged in
+   during this browser session,
+   restore that account.
+*/
+
+if(currentUser){
+
+  loadAccountData();
+
+}
+
+
+/*
+   Always start on login page when
+   the page is freshly opened.
+*/
+
+document
+  .getElementById("dashboard")
+  .classList.add("hidden");
+
+document
+  .getElementById("bottomNav")
+  .classList.add("hidden");
+
+showLogin();
+
+
+</script>
+
+</body>
+</html>
