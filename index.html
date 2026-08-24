@@ -1568,7 +1568,7 @@ nav span{
 ================================================== */
 
 const MIN_DEPOSIT = 3000;
-const WELCOME_BONUS = 1000;
+const WELCOME_BONUS = 2000;
 
 
 /* ==================================================
@@ -1729,7 +1729,7 @@ function giveWelcomeBonus(){
 
   alert(
     "Welcome to GitHib!\n\n" +
-    "₦1,000 welcome bonus has been added to your balance.\n\n" +
+    "₦2,000 welcome bonus has been added to your balance.\n\n" +
     "Please note: this is a platform and withdrawals require a minimum simulated deposit of ₦3,000."
   );
 
@@ -2100,7 +2100,7 @@ function register(){
   if(referralCode){
 
     localStorage.setItem(
-      "trivora_referral_" + phone,
+      "githib_referral_" + phone,
       referralCode
     );
 
@@ -2108,7 +2108,7 @@ function register(){
 
 
   alert(
-    "Account created successfully!\n\nPlease log in to receive your ₦1,000 welcome bonus."
+    "Account created successfully!\n\nPlease log in to receive your ₦2,000 welcome bonus."
   );
 
 
